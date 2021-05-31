@@ -1,0 +1,178 @@
+snippet render
+	render() {
+		return (
+			${1:<div />}
+		);
+	}
+endsnippet
+
+# NODE
+snippet me "Module Exports"
+module.exports = $0
+endsnippet
+
+snippet rq "Node require"
+const $1 = require('$2');$0
+endsnippet
+
+snippet drq "Default Node require"
+const $1 = require('$1');$0
+endsnippet
+
+# MISC
+snippet env
+process.env.$1
+endsnippet
+
+snippet import
+	import ${1:foo} from '${2:bar}'
+endsnippet
+
+snippet constf
+const ${1} = (${2}) => {
+	${3}
+}
+endsnippet
+
+snippet "int " "interator" riA
+${1:asdf}(${2:(c, i)} => ${$3})
+endsnippet
+
+snippet "fund " "fund" riA
+/**
+	* ${3}
+	*
+	* @returns {${2}}
+	*/
+${1:functionName}() {
+	${4}
+}
+endsnippet
+
+# React
+snippet rfc "React Functional Component" b
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './${2:$1}.css';
+
+function ${1:`!v expand('%:t:r')`}({ $3 }) {
+	return (
+		<${5:div} className={styles.base}>
+			$0
+		</$5>
+	);
+}
+
+$1.defaultProps = {$4};
+
+$1.propTypes = {`!p
+props = t[3]
+if props:
+  snip >> 1
+  for prop in props.split(', '):
+    snip += prop + ': PropTypes.any,'
+`
+};
+
+export default $1;
+endsnippet
+
+snippet rsc "React Styled Component" b
+import styled from 'styled-components';
+
+const ${1:`!v expand('%:t:r')`} = styled.${2:div}\`
+	$3
+\`;
+
+export default $1;
+endsnippet
+
+snippet pt "PropTypes Definition" b
+${1:`!v expand('%:t:r')`.}propTypes = {
+	${2:className}: ${3:PropTypes.string},
+};
+endsnippet
+
+# Prop types
+snippet  pt.a "PropTypes Array" w
+PropTypes.array${1:,}
+endsnippet
+
+snippet   pt.b "PropTypes Boolean" w
+PropTypes.bool${1:,}
+endsnippet
+
+snippet pt.f "PropTypes Function" w
+PropTypes.func${1:,}
+endsnippet
+
+snippet pt.n "PropTypes Number" w
+PropTypes.number${1:,}
+endsnippet
+
+snippet pt.o "PropTypes Object" w
+PropTypes.object${1:,}
+endsnippet
+
+snippet pt.s "PropType String" w
+PropTypes.string${1:,}
+endsnippet
+
+snippet pt.no "PropTypes Node" w
+PropTypes.node${1:,}
+endsnippet
+
+snippet pt.e "PropTypes Element" w
+PropTypes.element${1:,}
+endsnippet
+
+snippet pt.io "PropTypes instanceOf" w
+PropTypes.instanceOf(${2:PropTypes.string})${1:,}
+endsnippet
+
+snippet pt.one "PropTypes oneOf" w
+PropTypes.oneOf(['$2'$3])${1:,}
+endsnippet
+
+snippet pt.onet "PropTypes oneOfType" w
+PropTypes.oneOfType([
+	$2
+])${1:,}
+endsnippet
+
+snippet pt.ao "PropTypes arrayOf" w
+PropTypes.arrayOf(${2:PropTypes.string})${1:,}
+endsnippet
+
+snippet pt.oo "PropTypes objectOf" w
+PropTypes.objectOf(${2:PropTypes.string})${1:,}
+endsnippet
+
+snippet pt.sh "PropTyes Shape" w
+PropTypes.shape({
+	$2
+})${1:,}
+endsnippet
+
+snippet ir "isRequired" w
+isRequired,
+endsnippet
+
+# Hooks
+snippet us.s "useState" w
+const [$1, set${1/\w+\s*/\u$0/g}] = useState(${3:''})${0:;}
+endsnippet
+
+snippet us.d "useDispatch" w
+const dispatch = useDispatch();
+endsnippet
+
+snippet us.ef "useEffect with return" w
+useEffect(() => {
+  $1
+}, []);
+endsnippet
+
+snippet us.c "useContext" w
+const $1 = useContext($2)${0:;}
+endsnippet
