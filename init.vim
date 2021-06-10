@@ -71,14 +71,17 @@ if has("termguicolors")     " set true colors
 endif
 
 set background=dark
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_palette = 'mix'
-let g:gruvbox_material_visual = 'reverse'
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
+colorscheme vim-material
+
+" set background=dark
+" let g:gruvbox_material_background = 'hard'
+" let g:gruvbox_material_enable_bold = 1
+" let g:gruvbox_material_enable_italic = 1
+" let g:gruvbox_material_palette = 'mix'
+" let g:gruvbox_material_visual = 'reverse'
+" let g:gruvbox_material_transparent_background = 1
+" let g:gruvbox_material_better_performance = 1
+" colorscheme gruvbox-material
 
 " let g:oceanic_next_terminal_bold = 1
 
@@ -134,6 +137,8 @@ let mapleader=" "
 " My Config "
 """""""""""""
 au BufRead,BufNewFile *.ejs set filetype=html
+au BufRead,BufNewFile *.prettierrc set filetype=json
+au BufRead,BufNewFile *.babelrc set filetype=json
 " au BufNewFile,BufRead *.ejs setfiletype javascript
 au FileType html  let b:AutoPairs = AutoPairsDefine({'<%' : ' %>', '<%=': ' %>'})
 
@@ -299,6 +304,12 @@ let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
 nmap <Leader>F <Plug>(easymotion-overwin-f)
 " Search n-chars
 map / <Plug>(easymotion-sn)
+
+" Close tag
+let g:closetag_filenames = '*.html,*.js, *.jsx'
+let g:closetag_xhtml_filenames = '*.html,*.js, *.jsx'
+let g:closetag_filetypes = 'html, js, jsx'
+let g:closetag_xhtml_filetypes = 'xhtml,js, jsx'
 
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)

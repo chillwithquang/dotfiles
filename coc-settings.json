@@ -12,7 +12,6 @@
     "javascriptreact",
     "typescript",
     "json",
-    "html",
     "css",
     "vue"
   ],
@@ -25,6 +24,8 @@
   "prettier.printWidth": 80,
   "prettier.eslintIntegration": true,
   "prettier.disableSuccessMessage": false,
+  "eslint.format.enable": true,
+  "eslint.autoFixOnSave": true,
   "suggest.removeDuplicateItems": true,
   "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/snips"],
   "languageserver": {

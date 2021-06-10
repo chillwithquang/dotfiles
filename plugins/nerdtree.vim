@@ -11,7 +11,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=24
 let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$', '^\.vscode$']
+let g:NERDTreeIgnore = ['^\.DS_Store$', '^tags$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$', '^\.vscode$', 'node_modules']
 
 map <C-b> :NERDTreeToggle<CR>
 nmap <Leader><Leader>r :NERDTreeRefreshRoot<CR>

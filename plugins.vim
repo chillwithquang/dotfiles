@@ -3,9 +3,7 @@
 " -----------------------------------------------------------------------------
 " Insert and delete brakets, parens, quotes.
 Plug 'jiangmiao/auto-pairs'
-" Rainbow Parentheses
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1
+Plug 'alvan/vim-closetag'
 
 " Better motion
 Plug 'easymotion/vim-easymotion'
@@ -21,11 +19,7 @@ Plug 'tomtom/tcomment_vim'
 " Find and Replace
 Plug 'jremmen/vim-ripgrep'
 
-" Visual indentation
-Plug 'Yggdroot/indentLine'
-let g:indentLine_color_gui = '#3b6978'
-
-" Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " -----------------------------------------------------------------------------
 " Theme
@@ -33,6 +27,7 @@ let g:indentLine_color_gui = '#3b6978'
 Plug 'sainnhe/gruvbox-material'
 Plug 'mhartington/oceanic-next'
 Plug 'relastle/bluewery.vim'
+Plug 'hzchirs/vim-material'
 
 " -----------------------------------------------------------------------------
 " Fuzzy finder
@@ -81,7 +76,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin',{  'on': ['NERDTreeToggle','NERDTreeFind'] }
 Plug 'epilande/vim-es2015-snippets'
 
 " React code snippets
-" Plug 'epilande/vim-react-snippets'
+Plug 'epilande/vim-react-snippets'
 
 " Plug 'heavenshell/vim-jsdoc'
 Plug 'pangloss/vim-javascript'
@@ -108,18 +103,14 @@ Plug 'ervandew/supertab'
 " -----------------------------------------------------------------------------
 Plug 'othree/html5.vim'
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'jvanja/vim-bootstrap4-snippets'
 
 " -----------------------------------------------------------------------------
 " Float Term
 " -----------------------------------------------------------------------------
 Plug 'voldikss/vim-floaterm'
 "let g:floaterm_keymap_new    = '<Leader>tt'
-let g:floaterm_keymap_prev   = '<F9>'
-let g:floaterm_keymap_next   = '<F11>'
-let g:floaterm_keymap_toggle = '<F1>'
-let g:floaterm_width = 0.7
-let g:floaterm_height = 0.55
+" let g:floaterm_width = 0.7
+" let g:floaterm_height = 0.55
 " Linting & Fixing
 Plug 'dense-analysis/ale'
 " Sudo
@@ -129,3 +120,7 @@ Plug 'dense-analysis/ale'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'nickspoons/vim-sharpenup'
 Plug 'jlcrochet/vim-razor'
+
+Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+let g:mkdp_refresh_slow = 1
