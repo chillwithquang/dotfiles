@@ -51,7 +51,7 @@ set foldlevelstart=99
 set wrap
 set nrformats+=alpha
 
-au FocusGained,BufEnter * :checktime  " autoload
+" au FocusGained,BufEnter * :checktime  " autoload
 
 set guicursor=a:block
 
@@ -101,8 +101,8 @@ set autoindent
 " use intelligent indentation for C
 set smartindent
 " configure tabwidth and insert spaces instead of tabs
-set tabstop=2        " tab width is 4 spaces
-set shiftwidth=2     " indent also with 4 spaces
+set tabstop=2        " tab width is 2 spaces
+set shiftwidth=2     " indent also with 2 spaces
 set expandtab        " expand tabs to spaces
 
 set encoding=utf-8
@@ -121,11 +121,6 @@ endif
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=**/node_modules/**,/node_modules/*,*/tmp/*,*.so,*.swp,*.zip
-
-" python file config
-au FileType cs setlocal tabstop=4 softtabstop=4 shiftwidth=4
-
-
 """"""""""""""""""""""
 "      Mappings      "
 """"""""""""""""""""""
@@ -136,9 +131,15 @@ let mapleader=" "
 """""""""""""
 " My Config "
 """""""""""""
+" show hidden whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+
 au BufRead,BufNewFile *.ejs set filetype=html
 au BufRead,BufNewFile *.prettierrc set filetype=json
 au BufRead,BufNewFile *.babelrc set filetype=json
+autocmd BufRead,BufNewFile *.json setfiletype json
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhiteSpace /\s\+$/
 " au BufNewFile,BufRead *.ejs setfiletype javascript
 au FileType html  let b:AutoPairs = AutoPairsDefine({'<%' : ' %>', '<%=': ' %>'})
 
@@ -306,10 +307,12 @@ nmap <Leader>F <Plug>(easymotion-overwin-f)
 map / <Plug>(easymotion-sn)
 
 " Close tag
-let g:closetag_filenames = '*.html,*.js, *.jsx'
-let g:closetag_xhtml_filenames = '*.html,*.js, *.jsx'
-let g:closetag_filetypes = 'html, js, jsx'
-let g:closetag_xhtml_filetypes = 'xhtml,js, jsx'
+let g:closetag_filenames = '*.html,*.js, *.jsx, *.vue'
+let g:closetag_emptyTags_caseSensitive = 1
+
+" GitGutter
+nmap ]c <Plug>(GitGutterNextHunk)zz
+nmap [c <Plug>(GitGutterPrevHunk)zz
 
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)

@@ -76,7 +76,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin',{  'on': ['NERDTreeToggle','NERDTreeFind'] }
 Plug 'epilande/vim-es2015-snippets'
 
 " React code snippets
-Plug 'epilande/vim-react-snippets'
+Plug 'mlaursen/vim-react-snippets'
 
 " Plug 'heavenshell/vim-jsdoc'
 Plug 'pangloss/vim-javascript'
