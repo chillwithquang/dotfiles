@@ -87,4 +87,12 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <C-y> coc#refresh()
+
+" if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+"   let g:coc_global_extensions += ['coc-prettier']
+" endif
+"
+" if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+"   let g:coc_global_extensions += ['coc-eslint']
+" endif

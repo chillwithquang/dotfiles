@@ -3,7 +3,7 @@
   "suggest.autoTrigger": "always",
   "suggest.noselect": true,
   "suggest.echodocSupport": true,
-  "coc.preferences.hoverTarget": "echo",
+  "coc.preferences.floatActions": true,
   "coc.preferences.previewAutoClose": true,
   "signature.target": "echo",
   "coc.preferences.extensionUpdateCheck": "never",
@@ -11,7 +11,9 @@
     "javascript",
     "javascriptreact",
     "typescript",
+    "typescriptreact",
     "json",
+    "html",
     "css",
     "vue"
   ],
@@ -23,25 +25,15 @@
   "prettier.bracketSpacing": true,
   "prettier.printWidth": 80,
   "prettier.eslintIntegration": true,
-  "prettier.disableSuccessMessage": false,
-  "eslint.format.enable": true,
+  "prettier.disableSuccessMessage": true,
   "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "emmet.includeLanguages": { "javascript": "javascriptreact" },
   "suggest.removeDuplicateItems": true,
-  "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/snips"],
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "args": ["--log-file=/tmp/ccls.log", "-v=1"],
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json"],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        },
-        "client": {
-          "snippetSupport": true
-        }
-      }
-    }
-  }
+  "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/snips"]
 }

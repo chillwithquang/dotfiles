@@ -33,7 +33,6 @@ function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -48,44 +47,27 @@ endfunction
 " set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
-let g:sharpenup_statusline_opts = {
-\ 'TextLoading': ' #: %s loading... (%p of %P) ',
-\ 'TextReady': ' #: %s ',
-\ 'TextDead': ' #: Not running ',
-\ 'Highlight': 1,
-\ 'HiLoading': 'SharpenUpLoading',
-\ 'HiReady': 'SharpenUpReady',
-\ 'HiDead': 'SharpenUpDead'
-\}
-
-augroup OmniSharpIntegrations
-  autocmd!
-  autocmd User OmniSharpStarted,OmniSharpReady,OmniSharpStopped call lightline#update()
-augroup END
-
 let g:lightline = {
       \ 'colorscheme': 'bluewery',
       \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             ['readonly', 'fileicon','filename','cocstatus','modified'],
-        \             ['linterstatus','method']],
-        \   'right': [ [ 'lineinfo', 'percent' ],['sharpenup'],
-        \              ['icongitbranch']],
+        \             ['linterstatus']],
+        \   'right': [ [ 'lineinfo', 'percent'],
+        \              ['method','icongitbranch']],
         \ },
         \'inactive': {
           \   'left': [ ['fileicon'], ['filename'] ],
           \   'right': [['icongitbranch']]
           \ },
-          \ 'component':{
-          \ 'sharpenup':sharpenup#statusline#Build()},
           \ 'separator': { 'left': '', 'right': '' },
           \ 'subseparator': { 'left': '', 'right': '' },
           \ 'component_function': {
             \   'cocstatus': 'coc#status',
             \   'icongitbranch': 'DrawGitBranchInfo',
             \   'filename': 'LightLineFilename',
-            \   'fileicon': 'MyFiletype',
             \   'method': 'NearestMethodOrFunction',
+            \   'fileicon': 'MyFiletype',
             \   'linterstatus': 'LinterStatus',
             \ },
             \ }

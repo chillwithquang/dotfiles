@@ -21,7 +21,7 @@ filetype off                    " Reset filetype detection first ...
 filetype plugin indent on       " ... and enable filetype detection
 set ttyfast                     " Indicate fast terminal conn for faster redraw
 set laststatus=2                " Show status line always
-set encoding=utf-8              " Set default encoding to UTF-8
+set encoding=UTF-8              " Set default encoding to UTF-8
 set backspace=indent,eol,start  " Mak1es backspace key more powerful.
 set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
@@ -50,11 +50,11 @@ set foldmethod=indent
 set foldlevelstart=99
 set wrap
 set nrformats+=alpha
+set cursorline
 
 " au FocusGained,BufEnter * :checktime  " autoload
 
 set guicursor=a:block
-
 
 "" Fix backspace indent
  set backspace=indent,eol,start
@@ -63,29 +63,23 @@ set guicursor=a:block
 set iskeyword+=-
 " Theme
 
-
-if has("termguicolors")     " set true colors
-    set t_8f=\[[38;2;%lu;%lu;%lum
-    set t_8b=\[[48;2;%lu;%lu;%lum
-    set termguicolors
-endif
+set termguicolors
+" if has("termguicolors")     " set true colors
+"     set t_8f=\[[38;2;%lu;%lu;%lum
+"     set t_8b=\[[48;2;%lu;%lu;%lum
+"     set termguicolors
+" endif
 
 set background=dark
-colorscheme vim-material
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_palette = 'mix'
+let g:gruvbox_material_visual = 'reverse'
+let g:gruvbox_material_transparent_background = 1
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material
 
-" set background=dark
-" let g:gruvbox_material_background = 'hard'
-" let g:gruvbox_material_enable_bold = 1
-" let g:gruvbox_material_enable_italic = 1
-" let g:gruvbox_material_palette = 'mix'
-" let g:gruvbox_material_visual = 'reverse'
-" let g:gruvbox_material_transparent_background = 1
-" let g:gruvbox_material_better_performance = 1
-" colorscheme gruvbox-material
-
-" let g:oceanic_next_terminal_bold = 1
-
-syntax enable
 
 " highlight cursorline numbers
 hi CursorLineNr gui=bold guifg=#fc394f
@@ -93,7 +87,7 @@ hi vertsplit guifg=#7ea04d  guibg=bg
 set fillchars+=vert:\⏽
 
 if has('mouse')
-  set mouse=n
+  set mouse=a
 endif
 
 " use indentation of previous line
@@ -101,8 +95,8 @@ set autoindent
 " use intelligent indentation for C
 set smartindent
 " configure tabwidth and insert spaces instead of tabs
-set tabstop=2        " tab width is 2 spaces
-set shiftwidth=2     " indent also with 2 spaces
+set tabstop=2        " tab width is 4 spaces
+set shiftwidth=2     " indent also with 4 spaces
 set expandtab        " expand tabs to spaces
 
 set encoding=utf-8
@@ -121,6 +115,8 @@ endif
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=**/node_modules/**,/node_modules/*,*/tmp/*,*.so,*.swp,*.zip
+
+
 """"""""""""""""""""""
 "      Mappings      "
 """"""""""""""""""""""
@@ -131,18 +127,16 @@ let mapleader=" "
 """""""""""""
 " My Config "
 """""""""""""
-" show hidden whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-
-au BufRead,BufNewFile *.ejs set filetype=html
-au BufRead,BufNewFile *.prettierrc set filetype=json
-au BufRead,BufNewFile *.babelrc set filetype=json
-autocmd BufRead,BufNewFile *.json setfiletype json
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhiteSpace /\s\+$/
 " au BufNewFile,BufRead *.ejs setfiletype javascript
 au FileType html  let b:AutoPairs = AutoPairsDefine({'<%' : ' %>', '<%=': ' %>'})
 
+au BufRead,BufNewFile .eslintrc.json setlocal filetype=json
+au BufRead,BufNewFile .babelrc setlocal filetype=json
+au BufRead,BufNewFile .prettierrc setlocal filetype=json
+
+au BufRead,BufNewFile .babelrc.js setlocal filetype=javascript
+au BufRead,BufNewFile .sequelizerc setlocal filetype=javascript
+au BufRead,BufNewFile *.ejs setlocal filetype=html
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -150,35 +144,13 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nnoremap <Leader>w :w<CR>
 
 "Save & Quit file
-nnoremap <Leader>qq :wq<CR>
+nnoremap <Leader>qq :wqa<CR>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
-
-" Auto save
-function! s:save_buffer() abort
-  if empty(&buftype) && !empty(bufname(''))
-    let l:savemarks = {
-          \ "'[": getpos("'["),
-          \ "']": getpos("']")
-          \ }
-
-    silent! update
-
-    for [l:key, l:value] in items(l:savemarks)
-      call setpos(l:key, l:value)
-    endfor
-  endif
-endfunction
-
-" augroup save_buffer
-"   autocmd!
-"   autocmd InsertLeave,TextChanged * nested call s:save_buffer()
-"   autocmd FocusGained,BufEnter,CursorHold * silent! checktime
-" augroup end
 
 augroup vimrcEx
   autocmd!
@@ -260,10 +232,10 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 
 " Move between windows
-nmap <silent> <M-k> :wincmd k<CR>
-nmap <silent> <M-j> :wincmd j<CR>
-nmap <silent> <M-h> :wincmd h<CR>
-nmap <silent> <M-l> :wincmd l<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 
 "\\ highlight iCursor guifg=white guibg=steelblueQuickly select text you just pasted
 noremap gV `[v`]
@@ -290,10 +262,11 @@ endfunction
 
 " Fugitive
 nmap <leader>gaa :Git add .<CR>
-nmap <leader>gcm :Gcommit<CR>
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gj :diffget //3<CR>
-nmap <leader>gf :diffget //2<CR>
+nmap <leader>gcm :Git commit<CR>
+nmap <leader>gs :Git<CR>
+nmap gj :diffget //3<CR>
+nmap gf :diffget //2<CR>
+nmap <leader>gl :Flog<CR>
 
 " JS config
 let g:javascript_plugin_jsdoc = 1
