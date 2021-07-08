@@ -1,4 +1,4 @@
-nnoremap <silent> ` :Telescope find_files<CR>
+nnoremap <silent> ` :Telescope find_files theme=get_dropdown<CR>
 nnoremap <silent> <leader>ff :Telescope git_files<CR>
 nnoremap <silent> <leader>fc :Telescope git_commits<cr>
 nnoremap <silent> <leader>fg :Telescope live_grep<cr>

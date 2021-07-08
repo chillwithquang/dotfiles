@@ -80,6 +80,7 @@ let g:gruvbox_material_transparent_background = 1
 let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
 
+syntax enable
 
 " highlight cursorline numbers
 hi CursorLineNr gui=bold guifg=#fc394f
@@ -149,7 +150,6 @@ nnoremap <Leader>qq :wqa<CR>
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
 
 augroup vimrcEx
@@ -218,18 +218,6 @@ nnoremap <silent> zk O<Esc>j
 "\\ Switch between files
 nnoremap <tab> :bp<CR> " Previous buffer file
 nnoremap <S-tab> :bn<CR> " Next buffer file
-
-" Switching tabs quickly
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<CR>
 
 " Move between windows
 nnoremap <C-h> <C-w>h
