@@ -139,8 +139,6 @@ au BufRead,BufNewFile .babelrc.js setlocal filetype=javascript
 au BufRead,BufNewFile .sequelizerc setlocal filetype=javascript
 au BufRead,BufNewFile *.ejs setlocal filetype=html
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 "Save file
 nnoremap <Leader>w :w<CR>
 
@@ -278,3 +276,6 @@ nmap [c <Plug>(GitGutterPrevHunk)zz
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
+
+lua require("lsp")
+lua require("plugins")

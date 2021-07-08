@@ -1,4 +1,5 @@
 let bufferline = get(g:, 'bufferline', {})
+let bufferline.animation = v:false
 let bufferline.auto_hide = v:false
 let bufferline.closable = v:false
 let bufferline.icons = "both"
