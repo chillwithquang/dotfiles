@@ -29,10 +29,6 @@ function! MyFiletype()
   " return ''
 endfunction
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -44,9 +40,6 @@ function! LinterStatus() abort
   return (errors_recap . warnings_recap)
 endfunction
 
-" set statusline+=%{NearestMethodOrFunction()}
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
 let g:lightline = {
       \ 'colorscheme': 'bluewery',
       \ 'active': {
@@ -54,7 +47,7 @@ let g:lightline = {
         \             ['readonly', 'fileicon','filename','cocstatus','modified'],
         \             ['linterstatus']],
         \   'right': [ [ 'lineinfo', 'percent'],
-        \              ['method','icongitbranch']],
+        \              ['icongitbranch']],
         \ },
         \'inactive': {
           \   'left': [ ['fileicon'], ['filename'] ],
@@ -66,7 +59,6 @@ let g:lightline = {
             \   'cocstatus': 'coc#status',
             \   'icongitbranch': 'DrawGitBranchInfo',
             \   'filename': 'LightLineFilename',
-            \   'method': 'NearestMethodOrFunction',
             \   'fileicon': 'MyFiletype',
             \   'linterstatus': 'LinterStatus',
             \ },

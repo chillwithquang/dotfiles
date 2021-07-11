@@ -141,10 +141,10 @@ au BufRead,BufNewFile *.ejs setlocal filetype=html
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "Save file
-nnoremap <Leader>w :w<CR>
+nnoremap <silent><Leader>w :wa<CR>
 
 "Save & Quit file
-nnoremap <Leader>qq :wqa<CR>
+nnoremap <Leader>qq :wq<CR>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -284,8 +284,10 @@ let g:closetag_filenames = '*.html,*.js, *.jsx, *.vue'
 let g:closetag_emptyTags_caseSensitive = 1
 
 " GitGutter
-nmap ]c <Plug>(GitGutterNextHunk)zz
-nmap [c <Plug>(GitGutterPrevHunk)zz
+" nmap ]c <Plug>(GitGutterNextHunk)zz
+" nmap [c <Plug>(GitGutterPrevHunk)zz
+
+nnoremap <silent> <leader>gg :LazyGit<CR>
 
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
