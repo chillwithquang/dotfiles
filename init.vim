@@ -21,7 +21,6 @@ filetype off                    " Reset filetype detection first ...
 filetype plugin indent on       " ... and enable filetype detection
 set ttyfast                     " Indicate fast terminal conn for faster redraw
 set laststatus=2                " Show status line always
-set encoding=UTF-8              " Set default encoding to UTF-8
 set backspace=indent,eol,start  " Mak1es backspace key more powerful.
 set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
@@ -213,6 +212,18 @@ nnoremap N Nzzzv
 nnoremap <silent> zj o<Esc>k
 nnoremap <silent> zk O<Esc>j
 
+" Switching tabs quickly
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<CR>
+
 "\\ Switch between files
 nnoremap <tab> :bp<CR> " Previous buffer file
 nnoremap <S-tab> :bn<CR> " Next buffer file
@@ -247,8 +258,6 @@ function! SetProjectRoot()
 endfunction
 
 " Fugitive
-nmap <leader>gaa :Git add .<CR>
-nmap <leader>gcm :Git commit<CR>
 nmap <leader>gs :Git<CR>
 nmap gj :diffget //3<CR>
 nmap gf :diffget //2<CR>
@@ -272,6 +281,9 @@ let g:closetag_emptyTags_caseSensitive = 1
 " GitGutter
 nmap ]c <Plug>(GitGutterNextHunk)zz
 nmap [c <Plug>(GitGutterPrevHunk)zz
+
+" Lazy git
+nnoremap <silent> <leader>lg :LazyGit<CR>
 
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)

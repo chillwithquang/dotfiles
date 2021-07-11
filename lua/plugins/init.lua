@@ -1,1 +1,6 @@
 require("plugins.lualine")
+require("plugins.gitsigns")
+require("plugins.devicons")
+require("plugins.emmet")
+require("plugins.treesitter")
+require("plugins.tabline")

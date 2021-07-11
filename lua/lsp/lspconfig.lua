@@ -14,13 +14,11 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap("n", "<space><space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>TroubleToggle<CR>', opts)
 
   -- formatting
   if client.resolved_capabilities.document_formatting then
@@ -32,34 +30,6 @@ local on_attach = function(client, bufnr)
 
   require'completion'.on_attach(client, bufnr)
 
-  --protocol.SymbolKind = { }
-  -- protocol.CompletionItemKind = {
-  --   '?', -- Text
-  --   '?', -- Method
-  --   '?', -- Function
-  --   '?', -- Constructor
-  --   '?', -- Field
-  --   '?', -- Variable
-  --   '?', -- Class
-  --   '?', -- Interface
-  --   '?', -- Module
-  --   '?', -- Property
-  --   '?', -- Unit
-  --   '?', -- Value
-  --   '?', -- Enum
-  --   '?', -- Keyword
-  --   '?', -- Snippet
-  --   '?', -- Color
-  --   '?', -- File
-  --   '?', -- Reference
-  --   '?', -- Folder
-  --   '?', -- EnumMember
-  --   '?', -- Constant
-  --   '?', -- Struct
-  --   '?', -- Event
-  --   '?', -- Operator
-  --   '?', -- TypeParameter
-  -- }
 end
 
 nvim_lsp.flow.setup {
@@ -81,7 +51,7 @@ nvim_lsp.cssls.setup{
 
 nvim_lsp.diagnosticls.setup {
   on_attach = on_attach,
-  filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc' },
+  filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'html' },
   init_options = {
     linters = {
       eslint = {
@@ -100,8 +70,8 @@ nvim_lsp.diagnosticls.setup {
           security = 'severity'
         },
         securities = {
-          [2] = 'error',
-          [1] = 'warning'
+          warning = 'warning',
+          error = 'error'
         }
       },
     },
@@ -148,7 +118,24 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
--- vim.fn.sign_define('LspDiagnosticsSignError', { text = "✖", texthl = "LspDiagnosticsDefaultError" })
--- vim.fn.sign_define('LspDiagnosticsSignWarning', { text = "", texthl = "LspDiagnosticsDefaultWarning" })
+-- lspsaga
+local saga = require 'lspsaga'
+saga.init_lsp_saga {
+    max_preview_lines = 15,
+    code_action_keys = {quit = '<Esc>', exec = '<CR>'},
+    rename_action_keys = {
+        quit = '<Esc>',
+        exec = '<CR>' -- quit can be a table
+    },
+    finder_action_keys = {
+        quit = '<Esc>',
+        open = '<CR>',
+        vsplit = 'v',
+        split = 's'
+    }
+}
+
+-- vim.fn.sign_define('LspDiagnosticsSignError', { text = "?", texthl = "LspDiagnosticsDefaultError" })
+-- vim.fn.sign_define('LspDiagnosticsSignWarning', { text = "?", texthl = "LspDiagnosticsDefaultWarning" })
 -- vim.fn.sign_define('LspDiagnosticsSignInformation', { text = "?", texthl = "LspDiagnosticsDefaultInformation" })
--- -- vim.fn.sign_define('LspDiagnosticsSignHint', { text = "?", texthl = "LspDiagnosticsDefaultHint" })
+-- vim.fn.sign_define('LspDiagnosticsSignHint', { text = "?", texthl = "LspDiagnosticsDefaultHint" })
