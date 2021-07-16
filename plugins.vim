@@ -4,17 +4,16 @@ Plug 'easymotion/vim-easymotion'
 Plug 'wellle/targets.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomtom/tcomment_vim'
-Plug 'sainnhe/gruvbox-material'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-Plug 'posva/vim-vue'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'peitalin/vim-jsx-typescript'
+" Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+" Plug 'posva/vim-vue'
 let g:vue_pre_processors = ['scss']
 Plug 'ervandew/supertab'
 " Plug 'othree/html5.vim'
@@ -55,3 +54,4 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 Plug 'crispgm/nvim-tabline'
 Plug 'kdheepak/lazygit.nvim'
+Plug 'sainnhe/everforest'

@@ -63,21 +63,15 @@ set iskeyword+=-
 " Theme
 
 set termguicolors
-" if has("termguicolors")     " set true colors
-"     set t_8f=\[[38;2;%lu;%lu;%lum
-"     set t_8b=\[[48;2;%lu;%lu;%lum
-"     set termguicolors
-" endif
+if has("termguicolors")     " set true colors
+    set t_8f=\[[38;2;%lu;%lu;%lum
+    set t_8b=\[[48;2;%lu;%lu;%lum
+    set termguicolors
+endif
 
-set background=dark
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_palette = 'mix'
-let g:gruvbox_material_visual = 'reverse'
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
+let g:everforest_background = 'hard'
+let g:everforest_diagnostic_text_highlight = 1
+colorscheme everforest
 
 syntax enable
 
