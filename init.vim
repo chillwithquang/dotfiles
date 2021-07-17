@@ -70,16 +70,9 @@ set termguicolors
 "     set termguicolors
 " endif
 
-set background=dark
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_palette = 'mix'
-let g:gruvbox_material_visual = 'reverse'
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_better_performance = 1
-colorscheme gruvbox-material
-
+let g:everforest_background = 'hard'
+let g:everforest_diagnostic_text_highlight = 1
+colorscheme everforest
 
 " highlight cursorline numbers
 hi CursorLineNr gui=bold guifg=#fc394f
@@ -261,8 +254,6 @@ function! SetProjectRoot()
 endfunction
 
 " Fugitive
-nmap <leader>gaa :Git add .<CR>
-nmap <leader>gcm :Git commit<CR>
 nmap <leader>gs :Git<CR>
 nmap gj :diffget //3<CR>
 nmap gf :diffget //2<CR>
@@ -274,21 +265,16 @@ let g:polyglot_disabled = ['jsx', 'tsx']
 let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
 
 " Easymotion
-" s{char}{char} to move to {char}{char} over windows
-nmap <Leader>F <Plug>(easymotion-overwin-f)
-" Search n-chars
 map / <Plug>(easymotion-sn)
 
 " Close tag
 let g:closetag_filenames = '*.html,*.js, *.jsx, *.vue'
 let g:closetag_emptyTags_caseSensitive = 1
 
-" GitGutter
-" nmap ]c <Plug>(GitGutterNextHunk)zz
-" nmap [c <Plug>(GitGutterPrevHunk)zz
-
 nnoremap <silent> <leader>gg :LazyGit<CR>
 
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
+
+lua require("plugins")
