@@ -133,10 +133,10 @@ au BufRead,BufNewFile .sequelizerc setlocal filetype=javascript
 au BufRead,BufNewFile *.ejs setlocal filetype=html
 
 "Save file
-nnoremap <Leader>w :w<CR>
+nnoremap <Leader>w :wa!<CR>
 
 "Save & Quit file
-nnoremap <Leader>qq :wqa<CR>
+nnoremap <Leader>qq :wq!<CR>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -189,8 +189,8 @@ inoremap <F1> <ESC>
 noremap <Leader><Leader>s :so ~/.config/nvim/init.vim<CR> " Source .vimrc file
 
 " Remap split navigation
-nnoremap <C-s> <C-w>s
-nnoremap <C-v> <C-w>v
+nnoremap ss <C-w>s
+nnoremap sv <C-w>v
 
 vmap < <gv
 vmap > >gv
@@ -269,8 +269,6 @@ nmap <Leader>F <Plug>(easymotion-overwin-f)
 map / <Plug>(easymotion-sn)
 
 " Close tag
-let g:closetag_filenames = '*.html,*.js, *.jsx, *.vue'
-let g:closetag_emptyTags_caseSensitive = 1
 
 " GitGutter
 nmap ]c <Plug>(GitGutterNextHunk)zz

@@ -1,141 +1,128 @@
-local nvim_lsp = require('lspconfig')
-local protocol = require'vim.lsp.protocol'
+local nvim_lsp = require("lspconfig")
+local protocol = require("vim.lsp.protocol")
+
+local function is_cfg_present(cfg_name)
+  return vim.fn.empty(vim.fn.glob(vim.loop.cwd() .. cfg_name)) ~= 1
+end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap("n", "<space><space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap('n', '<space>e', '<cmd>TroubleToggle<CR>', opts)
-
-  -- formatting
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-    vim.api.nvim_command [[augroup END]]
+  local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
+  local function buf_set_option(...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
-  require'completion'.on_attach(client, bufnr)
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
+  -- Mappings.
+  local opts = { noremap = true, silent = true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  buf_set_keymap("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+  buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  buf_set_keymap("n", "<space>e", "<cmd>TroubleToggle<CR>", opts)
+end
+local is_using_eslint = function(_, _, result, client_id)
+  if is_cfg_present("/.eslintrc.json") or is_cfg_present("/.eslintrc.js") then
+    return
+  end
+
+  return vim.lsp.handlers["textDocument/publishDiagnostics"](
+    _,
+    _,
+    result,
+    client_id
+  )
 end
 
-nvim_lsp.flow.setup {
-  on_attach = on_attach
-}
+local custom_capabilities = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-nvim_lsp.tsserver.setup {
+  return capabilities
+end
+
+nvim_lsp.tsserver.setup({
   on_attach = on_attach,
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" }
-}
+  filetypes = {
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+    "javascript",
+    "javascriptreact",
+  },
+  handlers = {
+    ["textDocument/publishDiagnostics"] = is_using_eslint,
+  },
+  capabilities = custom_capabilities(),
+})
 
-nvim_lsp.html.setup{
+nvim_lsp.html.setup({
   on_attach = custom_on_attach,
-}
+})
 
-nvim_lsp.cssls.setup{
+nvim_lsp.cssls.setup({
   on_attach = custom_on_attach,
+})
+
+local eslint = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintStdin = true,
+  lintFormats = { "%f:%l:%c: %m" },
+  lintIgnoreExitCode = true,
 }
 
-nvim_lsp.diagnosticls.setup {
-  on_attach = on_attach,
-  filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'html' },
-  init_options = {
-    linters = {
-      eslint = {
-        command = 'eslint_d',
-        rootPatterns = { '.git' },
-        debounce = 100,
-        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
-        sourceName = 'eslint_d',
-        parseJson = {
-          errorsRoot = '[0].messages',
-          line = 'line',
-          column = 'column',
-          endLine = 'endLine',
-          endColumn = 'endColumn',
-          message = '[eslint] ${message} [${ruleId}]',
-          security = 'severity'
-        },
-        securities = {
-          warning = 'warning',
-          error = 'error'
-        }
-      },
-    },
-    filetypes = {
-      javascript = 'eslint',
-      javascriptreact = 'eslint',
-      typescript = 'eslint',
-      typescriptreact = 'eslint',
-    },
-    formatters = {
-      eslint_d = {
-        command = 'eslint_d',
-        args = { '--stdin', '--stdin-filename', '%filename', '--fix-to-stdout' },
-        rootPatterns = { '.git' },
-      },
-      prettier = {
-        command = 'prettier',
-        args = { '--stdin-filepath', '%filename' }
-      }
-    },
-    formatFiletypes = {
-      css = 'prettier',
-      javascript = 'eslint_d',
-      javascriptreact = 'eslint_d',
-      json = 'prettier',
-      scss = 'prettier',
-      less = 'prettier',
-      typescript = 'eslint_d',
-      typescriptreact = 'eslint_d',
-      json = 'prettier',
-      markdown = 'prettier',
-    }
-  }
-}
--- icon
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      prefix = ">",
-      spacing = 4,
-    },
-    signs = true,
-    update_in_insert = false,
-  }
-)
+local function eslint_config_exists()
+  local eslintrc = vim.fn.glob(".eslintrc*", 0, 1)
 
--- lspsaga
-local saga = require 'lspsaga'
-saga.init_lsp_saga {
-    max_preview_lines = 15,
-    code_action_keys = {quit = '<Esc>', exec = '<CR>'},
-    rename_action_keys = {
-        quit = '<Esc>',
-        exec = '<CR>' -- quit can be a table
-    },
-    finder_action_keys = {
-        quit = '<Esc>',
-        open = '<CR>',
-        vsplit = 'v',
-        split = 's'
-    }
-}
+  if not vim.tbl_isempty(eslintrc) then
+    return true
+  end
 
--- vim.fn.sign_define('LspDiagnosticsSignError', { text = "?", texthl = "LspDiagnosticsDefaultError" })
--- vim.fn.sign_define('LspDiagnosticsSignWarning', { text = "?", texthl = "LspDiagnosticsDefaultWarning" })
--- vim.fn.sign_define('LspDiagnosticsSignInformation', { text = "?", texthl = "LspDiagnosticsDefaultInformation" })
--- vim.fn.sign_define('LspDiagnosticsSignHint', { text = "?", texthl = "LspDiagnosticsDefaultHint" })
+  if vim.fn.filereadable("package.json") then
+    if vim.fn.json_decode(vim.fn.readfile("package.json"))["eslintConfig"] then
+      return true
+    end
+  end
+
+  return false
+end
+
+nvim_lsp.efm.setup({
+  on_attach = function(client)
+    client.resolved_capabilities.rename = false
+    client.resolved_capabilities.hover = false
+    client.resolved_capabilities.document_formatting = true
+    client.resolved_capabilities.completion = false
+  end,
+  root_dir = function()
+    if not eslint_config_exists() then
+      return nil
+    end
+    return vim.fn.getcwd()
+  end,
+  settings = {
+    rootMarkers = { ".git", "package.json" },
+    languages = {
+      javascript = { eslint },
+      javascriptreact = { eslint },
+      ["javascript.jsx"] = { eslint },
+      typescript = { eslint },
+      ["typescript.tsx"] = { eslint },
+      typescriptreact = { eslint },
+    },
+  },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+  },
+})
