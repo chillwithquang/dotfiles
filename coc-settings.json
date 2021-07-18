@@ -13,6 +13,7 @@
     "typescript",
     "typescriptreact",
     "json",
+    "jsonc",
     "html",
     "css",
     "vue"

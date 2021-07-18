@@ -120,6 +120,10 @@ let mapleader=" "
 """""""""""""
 " My Config "
 """""""""""""
+" autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
+augroup JsonToJsonc
+    autocmd! FileType json set filetype=jsonc
+augroup END
 " au BufNewFile,BufRead *.ejs setfiletype javascript
 au FileType html  let b:AutoPairs = AutoPairsDefine({'<%' : ' %>', '<%=': ' %>'})
 
