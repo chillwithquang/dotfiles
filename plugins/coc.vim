@@ -27,6 +27,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gh  :call CocActionAsync('showSignatureHelp')<CR>
 nmap <leader>do <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nnoremap <leader>cr :CocRestart<CR>

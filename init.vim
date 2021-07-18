@@ -134,10 +134,10 @@ au BufRead,BufNewFile *.ejs setlocal filetype=html
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "Save file
-nnoremap <silent><Leader>w :wa<CR>
+nnoremap <silent><Leader>w :wa!<CR>
 
 "Save & Quit file
-nnoremap <Leader>qq :wq<CR>
+nnoremap <silent><Leader>qq :wqa!<CR>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
