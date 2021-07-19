@@ -90,6 +90,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <C-y> coc#refresh()
 
+nnoremap <silent><nowait> <space>e  :<C-u>CocList diagnostics<cr>
 " if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
 "   let g:coc_global_extensions += ['coc-prettier']
 " endif
