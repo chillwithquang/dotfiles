@@ -257,11 +257,6 @@ nmap gj :diffget //3<CR>
 nmap gf :diffget //2<CR>
 nmap <leader>gl :Flog<CR>
 
-" JS config
-let g:javascript_plugin_jsdoc = 1
-let g:polyglot_disabled = ['jsx', 'tsx']
-let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
-
 " Easymotion
 " s{char}{char} to move to {char}{char} over windows
 nmap <Leader>F <Plug>(easymotion-overwin-f)
@@ -275,7 +270,7 @@ nmap ]c <Plug>(GitGutterNextHunk)zz
 nmap [c <Plug>(GitGutterPrevHunk)zz
 
 " Lazy git
-nnoremap <silent> <leader>lg :LazyGit<CR>
+nnoremap <silent> <leader>gg :LazyGit<CR>
 
 for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
