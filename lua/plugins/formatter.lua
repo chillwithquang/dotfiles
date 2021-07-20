@@ -64,3 +64,13 @@ vim.api.nvim_set_keymap(
   ":Format<CR>",
   { noremap = true, silent = true }
 )
+
+vim.api.nvim_exec(
+  [[
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.js,*.ts,*.tsx,*.json,*.jsonc,*.html,*.css,*.scss,*.lua FormatWrite
+augroup END
+]],
+  true
+)

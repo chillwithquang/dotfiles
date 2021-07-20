@@ -56,19 +56,25 @@ nvim_lsp.tsserver.setup({
     "javascript",
     "javascriptreact",
   },
-  handlers = {
-    ["textDocument/publishDiagnostics"] = is_using_eslint,
-  },
+  -- handlers = {
+  --   ["textDocument/publishDiagnostics"] = is_using_eslint,
+  -- },
   capabilities = custom_capabilities(),
 })
 
 nvim_lsp.html.setup({
   on_attach = custom_on_attach,
+  capabilities = capabilities,
 })
 
 nvim_lsp.cssls.setup({
   on_attach = custom_on_attach,
 })
+
+-- nvim_lsp.jsonls.setup({
+--   on_attach = custom_on_attach,
+--   capabilities = capabilities,
+-- })
 
 local eslint = {
   lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
@@ -76,7 +82,6 @@ local eslint = {
   lintFormats = { "%f:%l:%c: %m" },
   lintIgnoreExitCode = true,
 }
-
 local function eslint_config_exists()
   local eslintrc = vim.fn.glob(".eslintrc*", 0, 1)
 
