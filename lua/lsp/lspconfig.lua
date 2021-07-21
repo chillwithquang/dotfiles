@@ -1,10 +1,38 @@
 local nvim_lsp = require("lspconfig")
 local protocol = require("vim.lsp.protocol")
+local log = require("vim.lsp.log")
+local util = require("vim.lsp.util")
+local api = vim.api
 
 local function is_cfg_present(cfg_name)
   return vim.fn.empty(vim.fn.glob(vim.loop.cwd() .. cfg_name)) ~= 1
 end
 
+local function location_callback(_, method, result)
+  log.info(result, "asdas")
+  if result == nil or vim.tbl_isempty(result) then
+    local _ = log.info() and log.info(method, "No location found")
+    return nil
+  end
+
+  -- textDocument/definition can return Location or Location[]
+  -- https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_definition
+
+  if vim.tbl_islist(result) then
+    api.nvim_command("tabnew")
+    util.jump_to_location(result[1])
+
+    if #result > 1 then
+      util.set_qflist(util.locations_to_items(result))
+      api.nvim_command("copen")
+      api.nvim_command("wincmd p")
+    end
+  else
+    util.jump_to_location(result)
+  end
+end
+
+vim.lsp.handlers["textDocument/definition"] = location_callback
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -23,6 +51,7 @@ local on_attach = function(client, bufnr)
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   buf_set_keymap("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
   buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   buf_set_keymap(

@@ -285,5 +285,6 @@ for s:f in split(glob(s:config_home . '/plugins/*.vim'), '\n')
   execute 'source' fnameescape(s:f)
 endfor
 
+" nnoremap <silent>gD <cmd>lua vim.lsp.buf_request(0, 'textDocument/definition', vim.lsp.util.location_tabedit)<CR>
 lua require("lsp")
 lua require("plugins")
