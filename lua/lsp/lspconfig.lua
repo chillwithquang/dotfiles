@@ -25,6 +25,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
   buf_set_keymap("n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
   buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  buf_set_keymap(
+    "n",
+    "<space>do",
+    "<cmd>lua vim.lsp.buf.code_action()<CR>",
+    opts
+  )
   buf_set_keymap("n", "<space>e", "<cmd>TroubleToggle<CR>", opts)
 end
 local is_using_eslint = function(_, _, result, client_id)
