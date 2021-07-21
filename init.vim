@@ -69,9 +69,18 @@ if has("termguicolors")     " set true colors
     set termguicolors
 endif
 
-let g:everforest_background = 'hard'
-let g:everforest_diagnostic_text_highlight = 1
-colorscheme everforest
+" let g:everforest_background = 'hard'
+" let g:everforest_diagnostic_text_highlight = 1
+" colorscheme everforest
+
+set background=dark
+
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_palette = 'material'
+let g:gruvbox_material_visual = 'reverse'
+let g:gruvbox_material_transparent_background = 1
+colorscheme gruvbox-material
 
 syntax enable
 
