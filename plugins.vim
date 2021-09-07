@@ -49,3 +49,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neoclide/jsonc.vim'
 Plug 'sainnhe/gruvbox-material'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+source $HOME/.config/nvim/plugins/fzf.vimrc
