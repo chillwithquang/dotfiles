@@ -278,6 +278,8 @@ let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
 
 " Easymotion
 map / <Plug>(easymotion-sn)
+map f <Plug>(easymotion-f)
+map F <Plug>(easymotion-F)
 
 " Close tag
 let g:closetag_filenames = '*.html,*.js, *.jsx, *.vue'
