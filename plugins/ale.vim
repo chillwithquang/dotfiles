@@ -4,7 +4,6 @@ if executable('eslint_d')
 endif
 
 let g:ale_linters = {
-    \ 'javascript': ['eslint'],
     \ 'javascriptreact': ['eslint'],
     \ 'typescript': ['tsserver, eslint'],
     \ 'typescriptreact': ['eslint'],
@@ -12,13 +11,8 @@ let g:ale_linters = {
     \}
 
 let g:ale_fixers = {
-  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \ 'javascript': ['prettier', 'eslint'],
-  \ 'javascriptreact': ['prettier', 'eslint'],
-  \ 'typescript': ['prettier', 'eslint'],
-  \ 'typescriptreact': ['prettier', 'eslint'],
-  \  'vue': ['eslint', 'stylelint']
-  \ }
+  \   '*': ['remove_trailing_lines', 'trim_whitespace']
+  \}
 
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '✖'
