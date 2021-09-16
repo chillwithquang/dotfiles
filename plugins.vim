@@ -39,7 +39,7 @@ Plug 'editorconfig/editorconfig-vim'  " Tab/Space trough projects
 Plug 'rbong/vim-flog'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'sainnhe/everforest'
